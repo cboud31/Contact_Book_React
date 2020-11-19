@@ -1,22 +1,20 @@
 import React from "react";
-import {fetchAPI, BASE_URL} from "../api";
+import { fetchAPI, BASE_URL } from "../api";
 
 const ContactList = (props) => {
-    const {contactList, setContactList} = props; 
-    
+  const { contactList, deleteFromContactList } = props;
 
-    const handleDelete = (id) => {
-        fetchAPI(`${BASE_URL}/contacts/${id}`, "DELETE" )
-            .then(console.log)
-            .catch(console.error)
-    }
-    
+  const handleDelete = (contact) => {
+    fetchAPI(`${BASE_URL}/contacts/${contact.id}`, "DELETE")
+      .then(console.log)
+      .catch(console.error);
+  };
 
   return (
     <div id="ContactList">
       {contactList.map((contact, idx) => {
         const { id, name, address, phoneNumber, email, contactType } = contact;
-        
+
         return (
           <div
             className="card"
@@ -32,9 +30,18 @@ const ContactList = (props) => {
             <p>{email}</p>
             <p>{contactType}</p>
             <p>
-                <button>EDIT</button>
-                <button>DELETE</button>
-                <button>COMMENT</button>
+              <button>EDIT</button>
+              <button
+                onClick={(e) => {
+                  e.preventDefault();
+                  handleDelete(contact);
+                  deleteFromContactList(contact);
+                }}
+              >
+                DELETE
+              </button>
+              <button>COMMENT</button>
+              {/* Links to <CommentList />? */}
             </p>
           </div>
         );

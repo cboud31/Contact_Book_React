@@ -21,24 +21,28 @@ const App = () => {
   }, []);
 
   const addToContactList = (contact) => {
-  setContactList([...contactList, contact])
-  }
+    setContactList([...contactList, contact]);
+  };
 
   const deleteFromContactList = (contact) => {
-    const newContactList = contactList.filter( (c) => {
-      return (c !== contact)
-    })
-    setContactList(newContactList)
-  }
-  
+    const newContactList = contactList.filter((c) => {
+      return c !== contact;
+    });
+    setContactList(newContactList);
+  };
 
   return (
     <div id="App">
-      <ContactForm addToContactList={addToContactList}
-      contactList={contactList}
-      setContactList={setContactList} />
-      <ContactList contactList={contactList}
-      setContactList={setContactList} />
+      <ContactForm
+        addToContactList={addToContactList}
+        contactList={contactList}
+        setContactList={setContactList}
+      />
+      <ContactList
+        contactList={contactList}
+        setContactList={setContactList}
+        deleteFromContactList={deleteFromContactList}
+      />
     </div>
   );
 };
