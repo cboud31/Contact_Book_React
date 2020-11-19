@@ -4,6 +4,25 @@
   padding: 0;
 }
 
-/* #App {
-  
-} */
+#App {
+  display: flex;
+  flex-direction: row;
+}
+
+#ContactForm {
+  margin: 3rem;
+}
+.form {
+  padding: 1.5rem;
+}
+
+#ContactList {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.card {
+  margin: 1rem;
+  padding: 0.5rem;
+  width: 25vw;
+}

@@ -1,27 +1,58 @@
 import React, { useState } from "react";
 
-const CreateContact = (props) => {
+import { fetchAPI, BASE_URL } from "../api";
+import ContactList from "./ContactList";
+
+const ContactForm = (props) => {
   const [name, setName] = useState("");
   const [address, setAddress] = useState("");
   const [email, setEmail] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
-  const [contact, setContact] = useState("");
+  const [contactType, setContactType] = useState("personal");
+
+  const { contactList, setContactList } = props;
+
+  const sendData = {
+    name: name,
+    address: address,
+    phoneNumber: phoneNumber,
+    email: email,
+    contactType: contactType,
+  };
+
+  const addToContactList = (contact) => {
+    const contactListClone = [...contactList, contact];
+    setContactList(contactListClone);
+  };
 
   const handleName = (event) => {
     event.preventDefault();
     setName(event.target.value);
   };
 
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    fetchAPI(`${BASE_URL}/contacts`, "POST", sendData)
+      .then((res) => {
+        const { contact } = res;
+        console.log(contact);
+        addToContactList(contact);
+        //   reset form --> setState("");
+        setName("");
+        setAddress("");
+        setEmail("");
+        setPhoneNumber("");
+        setContactType("personal");
+      })
+      .catch((err) => console.error(err));
+  };
+
   return (
-    <div id="CreateContact">
+    <div id="ContactForm">
       <form
         className="form"
-        onSubmit={(event) => {
-          event.preventDefault();
-          console.log(name, address, phoneNumber, email, contact);
-          //   handleSubmit function to fetch API...
-          //   reset form --> setState("");
-        }}
+        style={{ border: "1px solid black" }}
+        onSubmit={handleSubmit}
       >
         <p>
           Name:
@@ -33,7 +64,7 @@ const CreateContact = (props) => {
           />
         </p>
         <p>
-          Address:{" "}
+          Address:
           <input
             type="text"
             placeholder="Address"
@@ -42,7 +73,7 @@ const CreateContact = (props) => {
           />
         </p>
         <p>
-          Phone:{" "}
+          Phone:
           <input
             type="text"
             placeholder="(123) 456-7890"
@@ -51,7 +82,7 @@ const CreateContact = (props) => {
           />
         </p>
         <p>
-          Email:{" "}
+          Email:
           <input
             type="text"
             placeholder="Email"
@@ -63,21 +94,22 @@ const CreateContact = (props) => {
           Contact:
           <select
             className="contact-type"
-            value={contact}
-            onChange={(e) => setContact(e.target.value)}
+            value={contactType}
+            onChange={(e) => setContactType(e.target.value)}
           >
-            <option value="Personal">Personal</option>
-            <option value="Work">Work</option>
-            <option value="Other">Other</option>
+            <option value="personal">Personal</option>
+            <option value="work">Work</option>
+            <option value="other">Other</option>
           </select>
         </p>
+        {/* make a conditional that toggles btw button & p/w requirements? */}
         <button>SUBMIT</button>
       </form>
     </div>
   );
 };
 
-export default CreateContact;
+export default ContactForm;
 
 /*
 

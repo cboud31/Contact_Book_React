@@ -1,4 +1,4 @@
-const BASE_URL = `https://univ-contact-book.herokuapp.com/api`;
+export const BASE_URL = `https://univ-contact-book.herokuapp.com/api`;
 
 
 export async function fetchAPI(url, method="GET", sendData=null) {
