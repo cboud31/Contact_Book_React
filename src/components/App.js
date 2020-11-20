@@ -1,15 +1,14 @@
 import React, { useState, useEffect } from "react";
 
-import { fetchAPI } from "../api";
+import { fetchAPI, BASE_URL } from "../api";
 import { ContactForm, ContactList } from "../components";
 
 const App = () => {
-  const URL = `https://univ-contact-book.herokuapp.com/api`;
 
   const [contactList, setContactList] = useState([]);
 
   useEffect(() => {
-    fetchAPI(`${URL}/contacts`)
+    fetchAPI(`${BASE_URL}/contacts`)
       .then(function (data) {
         const { contacts } = data;
         setContactList(contacts);

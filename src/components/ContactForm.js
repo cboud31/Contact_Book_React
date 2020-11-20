@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 
 import { fetchAPI, BASE_URL } from "../api";
-import ContactList from "./ContactList";
 
 const ContactForm = (props) => {
   const [name, setName] = useState("");
@@ -103,7 +102,7 @@ const ContactForm = (props) => {
           </select>
         </p>
         {/* make a conditional that toggles btw button & p/w requirements? */}
-        <button>SUBMIT</button>
+        <button id="formSubmit">SUBMIT</button>
       </form>
     </div>
   );

@@ -13,7 +13,9 @@ const ContactList = (props) => {
   return (
     <div id="ContactList">
       {contactList.map((contact, idx) => {
-        const { id, name, address, phoneNumber, email, contactType } = contact;
+        const { name, address, phoneNumber, email, contactType, comments } = contact;
+        console.log(comments)
+        
 
         return (
           <div
@@ -29,8 +31,15 @@ const ContactList = (props) => {
             <p>{phoneNumber}</p>
             <p>{email}</p>
             <p>{contactType}</p>
-            <p>
-              <button>EDIT</button>
+            {/* <div className="comments">{comments.length === 0
+            ? null
+            : comments.map( (comment, idx) => {
+                const {content} = comments;
+                return <div className="comments" key={idx}><p>{content}</p></div>
+            })
+                
+                }</div> */}
+            <p>              
               <button
                 onClick={(e) => {
                   e.preventDefault();
@@ -40,6 +49,7 @@ const ContactList = (props) => {
               >
                 DELETE
               </button>
+              <button>EDIT</button>
               <button>COMMENT</button>
               {/* Links to <CommentList />? */}
             </p>
