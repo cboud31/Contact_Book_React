@@ -1,21 +1,38 @@
 import React from "react";
 import { fetchAPI, BASE_URL } from "../api";
+import { CommentList } from "../components";
 
 const ContactList = (props) => {
-  const { contactList, deleteFromContactList } = props;
+  const { contactList, setContactList, deleteFromContactList, setEditContact } = props;
 
-  const handleDelete = (contact) => {
+  const handleDelete = async (contact) => {
     fetchAPI(`${BASE_URL}/contacts/${contact.id}`, "DELETE")
       .then(console.log)
       .catch(console.error);
   };
+// this is very useful, but may need to move to its own component.
+  const addComment = (contact, comment) => {
+    const newContacts = [...contactList]
+    console.log("newContact", newContacts)
+    console.log("Contact", contact)
+    const index = newContacts.indexOf(contact)
+    console.log("Line 19",index)
+    newContacts[index].comments.push(comment)
+
+  }
 
   return (
     <div id="ContactList">
       {contactList.map((contact, idx) => {
-        const { name, address, phoneNumber, email, contactType, comments } = contact;
-        console.log(comments)
-        
+        const {
+          name,
+          address,
+          phoneNumber,
+          email,
+          contactType,
+          comments,
+        } = contact;
+        // console.log(comments);
 
         return (
           <div
@@ -27,19 +44,12 @@ const ContactList = (props) => {
             }}
           >
             <h2>{name}</h2>
+            <p>{contactType}</p>
             <p>{address}</p>
             <p>{phoneNumber}</p>
             <p>{email}</p>
-            <p>{contactType}</p>
-            {/* <div className="comments">{comments.length === 0
-            ? null
-            : comments.map( (comment, idx) => {
-                const {content} = comments;
-                return <div className="comments" key={idx}><p>{content}</p></div>
-            })
-                
-                }</div> */}
-            <p>              
+            
+           
               <button
                 onClick={(e) => {
                   e.preventDefault();
@@ -49,10 +59,20 @@ const ContactList = (props) => {
               >
                 DELETE
               </button>
-              <button>EDIT</button>
+              <button onClick={() => setEditContact(contact)}>EDIT</button>
               <button>COMMENT</button>
-              {/* Links to <CommentList />? */}
-            </p>
+            
+              
+              <CommentList
+                contact={ contact }
+                contactList={contactList}
+                setContactList={setContactList}
+                addComment={addComment}
+                addCommentToContact={(newComment) => {
+                    // you have access to: contact, newComment, contactList,
+                }}
+                />
+           
           </div>
         );
       })}
