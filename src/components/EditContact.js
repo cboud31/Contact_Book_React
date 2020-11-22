@@ -1,65 +1,44 @@
-import React, { useState } from "react";
+import React from "react";
+import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
 
-import { fetchAPI, BASE_URL } from "../api";
+import { CreateContact, ContactList } from "../components";
 
-const ContactForm = (props) => {
-  const [name, setName] = useState("");
-  const [address, setAddress] = useState("");
-  const [email, setEmail] = useState("");
-  const [phoneNumber, setPhoneNumber] = useState("");
-  const [contactType, setContactType] = useState("personal");
-
-  const { contactList, setContactList } = props;
-
-  const sendData = {
-    name: name,
-    address: address,
-    phoneNumber: phoneNumber,
-    email: email,
-    contactType: contactType,
-  };
-
-  const addToContactList = (contact) => {
-    const contactListClone = [...contactList, contact];
-    setContactList(contactListClone);
-  };
-
-  const handleName = (event) => {
-    event.preventDefault();
-    setName(event.target.value);
-  };
+const EditContact = (props) => {
+  const {
+    editContact,
+    setEditContact,
+    name,
+    setName,
+    address,
+    setAddress,
+    email,
+    setEmail,
+    phoneNumber,
+    setPhoneNumber,
+    contactType,
+    setContactType,
+  } = props;
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    fetchAPI(`${BASE_URL}/contacts`, "POST", sendData)
-      .then((res) => {
-        const { contact } = res;
-        console.log(contact);
-        addToContactList(contact);
-        //   reset form --> setState("");
-        setName("");
-        setAddress("");
-        setEmail("");
-        setPhoneNumber("");
-        setContactType("personal");
-      })
-      .catch((err) => console.error(err));
   };
 
   return (
-    <div id="ContactForm">
+    <div className="EditContact">
+      {/* <h1>MAKE A FORM FOR EDIT CONTACT, PASS IN editContact as a prop</h1> */}
       <form
         className="form"
         style={{ border: "1px solid black" }}
         onSubmit={handleSubmit}
       >
+        <h2>Update {name}:</h2>
         <p>
           Name:
           <input
             type="text"
             placeholder="Name"
             value={name}
-            onChange={handleName}
+            onChange={(e) => setName(e.target.value)}
           />
         </p>
         <p>
@@ -103,21 +82,19 @@ const ContactForm = (props) => {
         </p>
         {/* make a conditional that toggles btw button & p/w requirements? */}
         <button id="formSubmit">SUBMIT</button>
+
+        <Link>
+          <button
+            onClick={<CreateContact />}
+            // onClick=routes back to <CreateContact />
+            // React Router!!
+          >
+            CANCEL
+          </button>
+        </Link>
       </form>
     </div>
   );
 };
 
-export default ContactForm;
-
-/*
-
-endpoint route + request Params: (`${URL}/contacts`, "POST", {
-    name: "name",
-    address: "address",
-    phoneNumber: "(123) 456-7890",
-    email: "email",
-    contactType: "option"
-})
-
-*/
+export default EditContact;

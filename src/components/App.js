@@ -1,11 +1,18 @@
 import React, { useState, useEffect } from "react";
+import {
+  BrowserRouter as Router,
+  Route,
+  Link,
+  Switch
+} from 'react-router-dom';
 
 import { fetchAPI, BASE_URL } from "../api";
-import { ContactForm, ContactList } from "../components";
+import { CreateContact, ContactList, CommentList } from "../components";
+import EditContact from "./EditContact";
 
 const App = () => {
-
   const [contactList, setContactList] = useState([]);
+  const [editContact, setEditContact] = useState(null);
 
   useEffect(() => {
     fetchAPI(`${BASE_URL}/contacts`)
@@ -30,19 +37,33 @@ const App = () => {
     setContactList(newContactList);
   };
 
+  const addCommentToContact = (id, content) =>{
+    
+  }
+
   return (
+    <Router>
     <div id="App">
-      <ContactForm
-        addToContactList={addToContactList}
-        contactList={contactList}
-        setContactList={setContactList}
-      />
+      {editContact ? (
+        <EditContact />
+      ) : (
+        // <Route path="/createcontact">
+        <CreateContact
+          addToContactList={addToContactList}
+          contactList={contactList}
+          setContactList={setContactList}
+        />
+        /* </Route> */
+      )}
       <ContactList
         contactList={contactList}
+        setContactList={ setContactList }
+        setEditContact={setEditContact}
         setContactList={setContactList}
         deleteFromContactList={deleteFromContactList}
       />
     </div>
+    </Router>
   );
 };
 
