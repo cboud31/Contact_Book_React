@@ -7,11 +7,14 @@
 #App {
   display: flex;
   flex-direction: row;
+  position: fixed;
 }
 
 #CreateContact {
   padding: 1rem;
   margin: 3rem;
+  width: 34vw;
+  height: 100vh;
 }
 #EditContact {
   padding: 1rem;
@@ -29,6 +32,9 @@
 #ContactList {
   display: flex;
   flex-wrap: wrap;
+  width: 66vw;
+  height: 100vh;
+  overflow-y: scroll;
 }
 
 .card {
