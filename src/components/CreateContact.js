@@ -2,7 +2,7 @@ import React, { useState } from "react";
 
 import { fetchAPI, BASE_URL } from "../api";
 
-const ContactForm = (props) => {
+const CreateContact = (props) => {
   const [name, setName] = useState("");
   const [address, setAddress] = useState("");
   const [email, setEmail] = useState("");
@@ -47,17 +47,19 @@ const ContactForm = (props) => {
   };
 
   return (
-    <div id="ContactForm">
+    <div id="CreateContact">
       <form
         className="form"
         style={{ border: "1px solid black" }}
         onSubmit={handleSubmit}
       >
+        <h3>Create New Contact:</h3>
         <p>
           Name:
           <input
             type="text"
             placeholder="Name"
+            style={{ width: "100%" }}
             value={name}
             onChange={handleName}
           />
@@ -67,6 +69,7 @@ const ContactForm = (props) => {
           <input
             type="text"
             placeholder="Address"
+            style={{ width: "100%" }}
             value={address}
             onChange={(e) => setAddress(e.target.value)}
           />
@@ -76,6 +79,7 @@ const ContactForm = (props) => {
           <input
             type="text"
             placeholder="(123) 456-7890"
+            style={{ width: "100%" }}
             value={phoneNumber}
             onChange={(e) => setPhoneNumber(e.target.value)}
           />
@@ -85,6 +89,7 @@ const ContactForm = (props) => {
           <input
             type="text"
             placeholder="Email"
+            style={{ width: "100%" }}
             value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
@@ -93,6 +98,7 @@ const ContactForm = (props) => {
           Contact:
           <select
             className="contact-type"
+            style={{ width: "100%" }}
             value={contactType}
             onChange={(e) => setContactType(e.target.value)}
           >
@@ -108,7 +114,7 @@ const ContactForm = (props) => {
   );
 };
 
-export default ContactForm;
+export default CreateContact;
 
 /*
 

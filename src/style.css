@@ -9,15 +9,17 @@
   flex-direction: row;
 }
 
-#ContactForm {
+#CreateContact {
   padding: 1rem;
   margin: 3rem;
 }
 #formSubmit {
-  text-align: center; 
+  text-align: center;
+  display: block;
+  width: 100%;
 }
 .form {
-  padding: 1.5rem;
+  padding: 2rem;
 }
 
 #ContactList {
@@ -29,7 +31,8 @@
   margin: 1rem;
   padding: 0.5rem;
   width: 25vw;
+  overflow-wrap: break-word;
 }
-p{
-  padding: .25rem
+p {
+  padding: 0.25rem;
 }

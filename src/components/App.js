@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from "react";
 
 import { fetchAPI, BASE_URL } from "../api";
-import { ContactForm, ContactList } from "../components";
+import { CreateContact, ContactList } from "../components";
 
 const App = () => {
-
   const [contactList, setContactList] = useState([]);
 
   useEffect(() => {
@@ -32,7 +31,7 @@ const App = () => {
 
   return (
     <div id="App">
-      <ContactForm
+      <CreateContact
         addToContactList={addToContactList}
         contactList={contactList}
         setContactList={setContactList}
