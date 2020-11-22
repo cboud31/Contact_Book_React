@@ -55,7 +55,7 @@ const CreateContact = (props) => {
       >
         <h3>Create New Contact:</h3>
         <p>
-          Name:
+          
           <input
             type="text"
             placeholder="Name"
@@ -65,7 +65,7 @@ const CreateContact = (props) => {
           />
         </p>
         <p>
-          Address:
+          
           <input
             type="text"
             placeholder="Address"
@@ -75,7 +75,7 @@ const CreateContact = (props) => {
           />
         </p>
         <p>
-          Phone:
+          
           <input
             type="text"
             placeholder="(123) 456-7890"
@@ -85,7 +85,7 @@ const CreateContact = (props) => {
           />
         </p>
         <p>
-          Email:
+          
           <input
             type="text"
             placeholder="Email"

@@ -1,13 +1,13 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import { fetchAPI, BASE_URL } from "../api";
 
 const CommentList = (props) => {
-  const [commentList, setCommentList] = useState([])
-  const [content, setContent] = useState("")
+  const [commentList, setCommentList] = useState([]);
+  const [content, setContent] = useState("");
 
   const { contact, addComment } = props;
   const { name, id, comments } = contact;
-/*
+  /*
   const addCommentToContact = (event) => {
       event.preventDefault();
       console.log("Comments (12)", id)
@@ -21,34 +21,32 @@ const CommentList = (props) => {
 */
   const deleteComment = async (comment) => {
     fetchAPI(`${BASE_URL}/comments/${comment.id}`, "DELETE")
-    .then()
-    .catch((err) => console.error(err))
+      .then()
+      .catch((err) => console.error(err));
   };
 
   return (
     <div className="Comments">
-    <h4>Leave a comment about {name}:</h4>
-    <form
-      className="createComment"
-      // onSubmit={addCommentToContact}
-    >
-      <input type="text" placeholder="Leave a comment..."
-      value={content}
-      onChange={(event) => setContent(event.target.value)} />
-      <button>
-        {/*fetchAPI for edit post, re-render comments array*/}
-        SUBMIT
-      </button>
-    </form>
-    {comments.length === 0
-      ? null
-      : comments.map((comment, idx) => {
-          return <h5 key={idx}>{comment.content}</h5>;
-        })}
-  </div>
-
-  )
-
+ <h4>Leave a comment about {name}:</h4>
+ <form
+   className="createComment"
+   // onSubmit={addCommentToContact}
+ >
+   <input type="text" placeholder="Leave a comment..."
+   value={content}
+   onChange={(event) => setContent(event.target.value)} />
+   <button>
+    {/* fetchAPI for edit post, re-render comments array */}
+     SUBMIT
+   </button>
+ </form>
+ {comments.length === 0
+   ? null
+   : comments.map((comment, idx) => {
+       return <h5 key={idx}>{comment.content}</h5>;
+     })}
+</div>
+  );
 };
 /**
  *  // map and render a contact's comments array
@@ -62,9 +60,6 @@ export default CommentList;
 //         "content": event.target.value
 //     }).then(console.log).catch((err) => console.error(err))
 //   }
-
-
- 
 
 /*
     <div className="CommentList">
@@ -84,3 +79,26 @@ export default CommentList;
     })}
   </div>
   */
+
+/*
+ <div className="Comments">
+ <h4>Leave a comment about {name}:</h4>
+ <form
+   className="createComment"
+   // onSubmit={addCommentToContact}
+ >
+   <input type="text" placeholder="Leave a comment..."
+   value={content}
+   onChange={(event) => setContent(event.target.value)} />
+   <button>
+    //  fetchAPI for edit post, re-render comments array
+     SUBMIT
+   </button>
+ </form>
+ {comments.length === 0
+   ? null
+   : comments.map((comment, idx) => {
+       return <h5 key={idx}>{comment.content}</h5>;
+     })}
+</div>
+*/

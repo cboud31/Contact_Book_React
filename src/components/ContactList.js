@@ -1,25 +1,29 @@
 import React from "react";
 import { fetchAPI, BASE_URL } from "../api";
-import { CommentList } from "../components";
+import { CommentList, ContactComments, CreateComment } from "../components";
 
 const ContactList = (props) => {
-  const { contactList, setContactList, deleteFromContactList, setEditContact } = props;
+  const {
+    contactList,
+    setContactList,
+    deleteFromContactList,
+    setEditContact,
+  } = props;
 
   const handleDelete = async (contact) => {
     fetchAPI(`${BASE_URL}/contacts/${contact.id}`, "DELETE")
       .then(console.log)
       .catch(console.error);
   };
-// this is very useful, but may need to move to its own component.
+  // this is very useful, but may need to move to its own component.
   const addComment = (contact, comment) => {
-    const newContacts = [...contactList]
-    console.log("newContact", newContacts)
-    console.log("Contact", contact)
-    const index = newContacts.indexOf(contact)
-    console.log("Line 19",index)
-    newContacts[index].comments.push(comment)
-
-  }
+    const newContacts = [...contactList];
+    console.log("newContact", newContacts);
+    console.log("Contact", contact);
+    const index = newContacts.indexOf(contact);
+    console.log("Line 19", index);
+    newContacts[index].comments.push(comment);
+  };
 
   return (
     <div id="ContactList">
@@ -48,22 +52,23 @@ const ContactList = (props) => {
             <p>{address}</p>
             <p>{phoneNumber}</p>
             <p>{email}</p>
-            
-           
-              <button
-                onClick={(e) => {
-                  e.preventDefault();
-                  handleDelete(contact);
-                  deleteFromContactList(contact);
-                }}
-              >
-                DELETE
-              </button>
-              <button onClick={() => setEditContact(contact)}>EDIT</button>
-              <button>COMMENT</button>
-            
-              
-              <CommentList
+
+            <button
+              onClick={(e) => {
+                e.preventDefault();
+                handleDelete(contact);
+                deleteFromContactList(contact);
+              }}
+            >
+              DELETE
+            </button>
+            <button onClick={() => setEditContact(contact)}>EDIT</button>
+            <button>COMMENT</button>
+
+
+            <CreateComment contact={contact} />
+            <ContactComments contact={contact} />
+            {/* <CommentList
                 contact={ contact }
                 contactList={contactList}
                 setContactList={setContactList}
@@ -71,8 +76,7 @@ const ContactList = (props) => {
                 addCommentToContact={(newComment) => {
                     // you have access to: contact, newComment, contactList,
                 }}
-                />
-           
+                /> */}
           </div>
         );
       })}
